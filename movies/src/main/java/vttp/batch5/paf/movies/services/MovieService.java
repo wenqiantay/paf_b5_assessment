@@ -45,16 +45,16 @@ public class MovieService {
     }
   }
 
-  public void checkAndLoadMoviesDatainMongo() throws Exception{
-    if (!mongoMovieRepository.isDataLoadedInMongoDB() ){
-      JsonArray filteredMoviesArray= unzipAndReadMoviesFile();
-      mongoMovieRepository.batchInsertMovies(filteredMoviesArray);
-      System.out.println("inserted into mongo ");
+  // public void checkAndLoadMoviesDatainMongo() throws Exception{
+  //   if (!mongoMovieRepository.isDataLoadedInMongoDB() ){
+  //     JsonArray filteredMoviesArray= unzipAndReadMoviesFile();
+  //     mongoMovieRepository.batchInsertMovies(filteredMoviesArray);
+  //     System.out.println("inserted into mongo ");
       
-    } else {
-      System.out.println("Data already loaded in Mongo.");
-    }
-  }
+  //   } else {
+  //     System.out.println("Data already loaded in Mongo.");
+  //   }
+  // }
 
   
 

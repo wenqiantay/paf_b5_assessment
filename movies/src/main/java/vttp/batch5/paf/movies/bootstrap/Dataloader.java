@@ -17,7 +17,7 @@ public class Dataloader implements CommandLineRunner{
   public void run(String ...args) throws Exception{
     System.out.println("Trying to load data...");
     movieService.checkAndLoadMoviesDatainSql();
-    movieService.checkAndLoadMoviesDatainMongo();
+    // movieService.checkAndLoadMoviesDatainMongo();
     System.out.println("successful");
   }
 

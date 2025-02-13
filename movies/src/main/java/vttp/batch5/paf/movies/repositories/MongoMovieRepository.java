@@ -1,20 +1,9 @@
 package vttp.batch5.paf.movies.repositories;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import vttp.batch5.paf.movies.models.Movie;
 
 @Repository
 public class MongoMovieRepository {
@@ -50,55 +39,55 @@ public class MongoMovieRepository {
 //   { upsert: true }
 // );
  //
- public void batchInsertMovies(JsonArray jsonArray) throws ParseException {
-    final int batchSize = 25;
-    List<Movie> batch = new ArrayList<>();
+//  public void batchInsertMovies(JsonArray jsonArray) throws ParseException {
+//     final int batchSize = 25;
+//     List<Movie> batch = new ArrayList<>();
 
-    for (int i = 0; i < jsonArray.size(); i++) {
-        JsonObject jsonObject = jsonArray.getJsonObject(i);
+//     for (int i = 0; i < jsonArray.size(); i++) {
+//         JsonObject jsonObject = jsonArray.getJsonObject(i);
 
-        Movie movie = new Movie();
-        movie.setImdbid(jsonObject.getString("imdb_id", null)); 
-        movie.setTitle(jsonObject.getString("title", ""));
+//         Movie movie = new Movie();
+//         movie.setImdbid(jsonObject.getString("imdb_id", null)); 
+//         movie.setTitle(jsonObject.getString("title", ""));
         
-        String directors = jsonObject.getString("director", "");
-        movie.setDirectors(directors.isEmpty() ? Collections.emptyList() : new ArrayList<>(List.of(directors.split(","))));
+//         String directors = jsonObject.getString("director", "");
+//         movie.setDirectors(directors.isEmpty() ? Collections.emptyList() : new ArrayList<>(List.of(directors.split(","))));
 
-        movie.setOverview(jsonObject.getString("overview", ""));
-        movie.setTagline(jsonObject.getString("tagline", ""));
+//         movie.setOverview(jsonObject.getString("overview", ""));
+//         movie.setTagline(jsonObject.getString("tagline", ""));
         
        
-        String genres = jsonObject.getString("genres", "");
-        movie.setGenres(genres.isEmpty() ? Collections.emptyList() : new ArrayList<>(List.of(genres.split(","))));
+//         String genres = jsonObject.getString("genres", "");
+//         movie.setGenres(genres.isEmpty() ? Collections.emptyList() : new ArrayList<>(List.of(genres.split(","))));
 
-        movie.setImdbRating(jsonObject.getJsonNumber("imdb_rating") != null ? jsonObject.getJsonNumber("imdb_rating").doubleValue() : 0.0);
-        movie.setImdbVotes(jsonObject.getInt("imdb_votes", 0)); 
+//         movie.setImdbRating(jsonObject.getJsonNumber("imdb_rating") != null ? jsonObject.getJsonNumber("imdb_rating").doubleValue() : 0.0);
+//         movie.setImdbVotes(jsonObject.getInt("imdb_votes", 0)); 
 
-        batch.add(movie);
+//         batch.add(movie);
 
        
-        if (batch.size() == batchSize || i == jsonArray.size() - 1) {
+//         if (batch.size() == batchSize || i == jsonArray.size() - 1) {
 
-            for (Movie movieItem : batch) {
-                Query query = new Query(Criteria.where("imdb_id").is(movieItem.getImdbid()));
+//             for (Movie movieItem : batch) {
+//                 Query query = new Query(Criteria.where("imdb_id").is(movieItem.getImdbid()));
 
-                Update update = new Update()
-                        .set("title", movieItem.getTitle())
-                        .set("directors", movieItem.getDirectors())
-                        .set("overview", movieItem.getOverview())
-                        .set("tagline", movieItem.getTagline())
-                        .set("genres", movieItem.getGenres())
-                        .set("imdbRating", movieItem.getImdbRating())
-                        .set("imdbVotes", movieItem.getImdbVotes());
+//                 Update update = new Update()
+//                         .set("title", movieItem.getTitle())
+//                         .set("directors", movieItem.getDirectors())
+//                         .set("overview", movieItem.getOverview())
+//                         .set("tagline", movieItem.getTagline())
+//                         .set("genres", movieItem.getGenres())
+//                         .set("imdbRating", movieItem.getImdbRating())
+//                         .set("imdbVotes", movieItem.getImdbVotes());
 
                
-                mongoTemplate.upsert(query, update, Movie.class);
-            }
+//                 mongoTemplate.upsert(query, update, Movie.class);
+//             }
 
             
-            batch.clear();
-        }
-    }
+//             batch.clear();
+//         }
+//     }
 
     
     
@@ -107,7 +96,7 @@ public class MongoMovieRepository {
 
 
 
- }
+ 
 
  // TODO: Task 2.4
  // You can add any number of parameters and return any type from the method
@@ -119,6 +108,8 @@ public class MongoMovieRepository {
  public void logError() {
 
  }
+
+}
 
  // TODO: Task 3
  // Write the native Mongo query you implement in the method in the comments
@@ -166,6 +157,6 @@ public class MongoMovieRepository {
 //         // Return the results
 //         return result.getMappedResults();
 //     }
- }
+ 
 
 
